@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial->
+<title>Global Boss</title>
+<style>
+body { background:#111; color:white; text-align:center; fon>
+button { padding:15px; font-size:18px; margin-top:20px; }
+</style>
+</head>
+<body>
+
+<h1>🔥 GLOBAL BOSS</h1>
+<h2>HP: <span id="hp">1000</span></h2>
+<button onclick="attack()">Attack</button>
+
+<script>
+const ws = new WebSocket("ws://localhost:3000");
+
+ws.onmessage = (event) => {
+  const data = JSON.parse(event.data);
+  if (data.type === "update") {
+    document.getElementById("hp").innerText = data.hp;
+  }
+};
+
+function attack() {
+  ws.send("attack");
+}
+</script>
+
+</body>
+</html>
